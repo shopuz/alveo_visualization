@@ -75,24 +75,46 @@ def index():
     #return { "list" : item_list_name}
     return {"words": words, "word_dict": word_dict}
 
-@route("/timeline")
+@route("/timeline", method="POST")
+@route("/timeline", method="GET")
 def index():
     client = hcsvlab.Client()
-    the_list = word_frequency.get_word_frequency_per_year(client,'the', 'cooee list')
-    an_list = word_frequency.get_word_frequency_per_year(client,'an', 'cooee list')
-    a_list = word_frequency.get_word_frequency_per_year(client,'a', 'cooee list')
+    words = request.forms.getall("words[]")
+    word_list = []
     file = open("./static/timeline.tsv", "w")
-    file.write("date\tthe\tan\ta\n")
+    file.write("date")
+    for word in words:
+        file.write("\t" + word)    
+        word_list.append(word_frequency.get_word_frequency_per_year(client, word, 'cooee list'))
+    
+    #an_list = word_frequency.get_word_frequency_per_year(client,'an', 'cooee list')
+    #a_list = word_frequency.get_word_frequency_per_year(client,'a', 'cooee list')
+    file.write("\n")
 
-    for key in sorted(the_list):
-        file.write(key + "\t" + str(the_list[key]) + "\t" + str(an_list[key]) + "\t" + str(a_list[key]) + "\n")
+    if not word_list:
+        return template('timeline', rows=[])
+
+    for key in sorted(word_list[0]):
+        file.write(key);
+        for i in range(len(word_list)):
+            file.write("\t" + str(word_list[i][key]))
+        file.write("\n")
 
     file.close()
 
-    return template('timeline')
+    file = open("./static/timeline.tsv", "r")
+    content = file.read()
+
+    rows = content.split("\n")[:-1]
+    
+
+    file.close()
+    
+    print words
+    return template('timeline', rows=rows)
 
 if __name__ == "__main__":
     # start a server but have it reload any files that
     # are changed
-    run(host="localhost", port=8010, reloader=True)
+    run(host="localhost", port=8030, reloader=True)
 

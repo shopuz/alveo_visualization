@@ -23,8 +23,31 @@ body {
 }
 
 </style>
+
+<script type="text/javascript">
+
+function add()
+{
+  $('.add_search').append('<input type="text" name="words[]" /> <br/><br/>')
+}
+
+</script>
+
+
 <body>
   <br/><br/><br/><br/><br/><br/>
+  <h2>Word Frequency over Time</h2>
+  
+  <a onclick="add()" > Add Search Term </a>
+  <form action="/timeline" method="post">
+
+    <input type="text" name="words[]" /> <br/><br/>
+    <span class="add_search"></span> <br/>
+
+    <input type="submit" value="Submit" />
+  </form>
+
+  <graph></graph>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
 
@@ -55,7 +78,7 @@ var line = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.frequency); });
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -118,5 +141,20 @@ d3.tsv("/static/timeline.tsv", function(error, data) {
 });
 
 </script>
+
+<br/><br/>
+<div class="col-md-6">
+    <table class="table table-striped table-bordered">
+      %for row in rows:
+        <tr>
+            %for col in row.split("\t"):
+              <td> {{ col }} </td>
+            %end
+        </tr>
+
+      %end
+    </table>
+  </div>
+
 
 %include footer

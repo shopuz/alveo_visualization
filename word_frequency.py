@@ -7,7 +7,7 @@ import nltk
 from nltk import *
 
 def get_word_frequency(client, search_term=''):
-	
+	""" Get the word frequency for a given word in all the item lists owned by the client """
 	if not search_term:
 		print "Enter a word to count its frequency:"
 		search_term = raw_input()
@@ -31,6 +31,7 @@ def get_word_frequency(client, search_term=''):
 
 
 def get_word_frequency_table(client, item_list_name=''):
+	""" Get the word frequncy table for all the words in all the item lists owned by the client """
 	primary_text = ''
 	if not item_list_name:
 		lists = client.get_item_lists()
@@ -59,6 +60,8 @@ def get_word_frequency_table(client, item_list_name=''):
 
 
 def compare_word_frequency_decade(client):
+	""" Get the frequency of two words in COOEE text """
+
 	print 'Input Search term: '
 	search_term = raw_input()
 	print "Enter first decade initial year"
@@ -87,6 +90,8 @@ def compare_word_frequency_decade(client):
 
 
 def get_collocation_frequency(client, item_list_name=''):
+	""" Get the collocation frequency of all the words in the item lists owned by the client """
+
 	primary_text = ''
 	if not item_list_name:
 		lists = client.get_item_lists()
@@ -131,6 +136,7 @@ def get_collocation_frequency(client, item_list_name=''):
 
 
 def get_word_frequency_per_year(client, search_term='', item_list_name=''):
+	""" Get the frequency of a given word per year inside the item list given by item_list_name """
 	
 	if not search_term:
 		print "Enter a word to count its frequency:"
@@ -141,30 +147,38 @@ def get_word_frequency_per_year(client, search_term='', item_list_name=''):
 	primary_text = ''
 	temp_result = []
 	result = {}
+	items = []
+	
 	if item_list_name:
 		item_list = client.get_item_list_by_name(item_list_name)
 		items = item_list.get_all()
+	else:
+		item_lists = client.get_item_lists()
 
-		for item in items:
-			primary_text = item.get_primary_text()
-			year = item.item_metadata['alveo:metadata']['dc:created']
-			words = word_tokenize(primary_text)
-			word_freq = words.count(search_term)
-			temp_result.append((year, word_freq))
-
-		for i in temp_result:
-			if i[0] in result.keys():
-				result[i[0]] = result[i[0]] + i[1]
-			else:
-				result[i[0]] = i[1]
+		for l in item_lists['own']:
+			items.append(client.get_item_list(l['item_list_url']))
 
 
-		return result
+	for item in items:
+		primary_text = item.get_primary_text()
+		year = item.item_metadata['alveo:metadata']['dc:created']
+		words = word_tokenize(primary_text)
+		word_freq = words.count(search_term)
+		temp_result.append((year, word_freq))
+
+	for i in temp_result:
+		if i[0] in result.keys():
+			result[i[0]] = result[i[0]] + i[1]
+		else:
+			result[i[0]] = i[1]
+
+
+	return result
 
 
 
 if __name__ == '__main__':
 	client  = hcsvlab.Client()
-	print get_collocation_frequency(client, 'ace list')
+	#print get_collocation_frequency(client, 'ace list')
 
 
