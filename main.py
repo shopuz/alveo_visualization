@@ -75,9 +75,24 @@ def index():
     #return { "list" : item_list_name}
     return {"words": words, "word_dict": word_dict}
 
+@route("/timeline")
+def index():
+    client = hcsvlab.Client()
+    the_list = word_frequency.get_word_frequency_per_year(client,'the', 'cooee list')
+    an_list = word_frequency.get_word_frequency_per_year(client,'an', 'cooee list')
+    a_list = word_frequency.get_word_frequency_per_year(client,'a', 'cooee list')
+    file = open("./static/timeline.tsv", "w")
+    file.write("date\tthe\tan\ta\n")
+
+    for key in sorted(the_list):
+        file.write(key + "\t" + str(the_list[key]) + "\t" + str(an_list[key]) + "\t" + str(a_list[key]) + "\n")
+
+    file.close()
+
+    return template('timeline')
 
 if __name__ == "__main__":
     # start a server but have it reload any files that
     # are changed
-    run(host="localhost", port=8080, reloader=True)
+    run(host="localhost", port=8010, reloader=True)
 

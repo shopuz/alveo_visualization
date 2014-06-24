@@ -43,6 +43,7 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="/wordcloud">WordCloud</a></li>
             <li><a href="/heatmap">HeatMap</a></li>
+            <li><a href="/timeline">Timeline</a></li>
             
           </ul>
         </div><!--/.nav-collapse -->

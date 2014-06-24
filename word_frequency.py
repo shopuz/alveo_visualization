@@ -1,3 +1,4 @@
+import sys
 sys.path.append('/Users/surendrashrestha/Projects/pyhcsvlab')
 import hcsvlab
 from collections import Counter
@@ -5,9 +6,12 @@ from nltk.tokenize import word_tokenize
 import nltk
 from nltk import *
 
-def get_word_frequency(client):
-	print "Enter a word to count its frequency:"
-	search_term = raw_input()
+def get_word_frequency(client, search_term=''):
+	
+	if not search_term:
+		print "Enter a word to count its frequency:"
+		search_term = raw_input()
+
 	lists = client.get_item_lists()
 
 	primary_text = ''
@@ -24,6 +28,7 @@ def get_word_frequency(client):
 	word_frequency = words.count(search_term)
 			
 	return word_frequency
+
 
 def get_word_frequency_table(client, item_list_name=''):
 	primary_text = ''
@@ -123,6 +128,39 @@ def get_collocation_frequency(client, item_list_name=''):
 
 
 	return [row_unique, col_unique]
+
+
+def get_word_frequency_per_year(client, search_term='', item_list_name=''):
+	
+	if not search_term:
+		print "Enter a word to count its frequency:"
+		search_term = raw_input()
+
+	lists = client.get_item_lists()
+
+	primary_text = ''
+	temp_result = []
+	result = {}
+	if item_list_name:
+		item_list = client.get_item_list_by_name(item_list_name)
+		items = item_list.get_all()
+
+		for item in items:
+			primary_text = item.get_primary_text()
+			year = item.item_metadata['alveo:metadata']['dc:created']
+			words = word_tokenize(primary_text)
+			word_freq = words.count(search_term)
+			temp_result.append((year, word_freq))
+
+		for i in temp_result:
+			if i[0] in result.keys():
+				result[i[0]] = result[i[0]] + i[1]
+			else:
+				result[i[0]] = i[1]
+
+
+		return result
+
 
 
 if __name__ == '__main__':
