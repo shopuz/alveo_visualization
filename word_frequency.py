@@ -115,7 +115,7 @@ def get_collocation_frequency(client, item_list_name=''):
 
 	#compute frequency distribution for all the bigrams in the text
 	fdist = nltk.FreqDist(bgs)
-	file = open("/Users/surendrashrestha/Projects/alveo/bottle/static/data.tsv", "w")
+	file = open("./static/data.tsv", "w")
 	file.write("day\thour\tvalue\n")
 	for k,v in fdist.items()[1:50]:
 	    if k[0] not in row_unique:
