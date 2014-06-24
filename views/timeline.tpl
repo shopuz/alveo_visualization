@@ -38,16 +38,27 @@ function add()
   <br/><br/><br/><br/><br/><br/>
   <h2>Word Frequency over Time</h2>
   
-  <a onclick="add()" > Add Search Term </a>
+  <a href="#" onclick="add()" > Add Search Term </a>
   <form action="/timeline" method="post">
 
     <input type="text" name="words[]" /> <br/><br/>
     <span class="add_search"></span> <br/>
 
+    Select Item List : 
+    <select name="item_list_name">
+      %for item in personal_item_list:
+       <option value="{{ item['name'] }}">  {{ item['name'] }} </option>
+      %end
+    </select>
+
+    <br/>
+
     <input type="submit" value="Submit" />
   </form>
 
+%if len(rows) > 0:
   <graph></graph>
+%end
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
 
