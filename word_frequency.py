@@ -188,9 +188,16 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 		primary_text = item.get_primary_text()
 		year = item.item_metadata['alveo:metadata']['dc:created']
 		words = word_tokenize(primary_text)
+		filtered_words = []
 		
 		if pos:
-			tagged_words = nltk.pos_tag(words)
+			for i in range(len(words)):
+				if words[i] == search_term:
+					filtered_words.append(words[i-1])
+					filtered_words.append(words[i])
+					filtered_words.append(words[i+1])
+
+			tagged_words = nltk.pos_tag(filtered_words)
 			f = nltk.FreqDist(tagged_words)
 
 			word_pos = (search_term, pos)
@@ -201,7 +208,8 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 				print word_pos
 
 				word_freq = f[word_pos]
-
+			else:
+				word_freq = words.count(search_term)
 		else:
 			word_freq = words.count(search_term)
 	
@@ -216,6 +224,7 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 
 
 	return result
+
 
 
 

@@ -106,6 +106,8 @@ def index():
     file = open("./static/timeline.tsv", "w")
     file.write("date")
     i=0
+    
+
     for word in words:
         file.write("\t" + word + '_' + pos[i])    
         result = word_frequency.get_word_frequency_per_year(client, word, pos[i], item_list_name)
