@@ -1,4 +1,13 @@
 %include header
+<script type="text/javascript">
+
+  function add()
+  {
+    $('.add_search').append('<input type="text" name="words[]" /> <br/><br/>')
+  }
+
+</script>
+
 
   <style>
       rect.bordered {
@@ -22,10 +31,40 @@
     </style>
     <script src="http://d3js.org/d3.v3.js"></script>
 
-    <br/><br/><br/><br/><br/>
-    <h3> Collocation Heatmap </h3>
+    
+    <h3 class="center"> Collocation Heatmap </h3>
+    <a href="/heatmap">Reload Default Heatmap</a>
+    <br/>
+    <div class="row">
+      <div class="col-md-2">
+        <h4> Custom Heatmap </h4>
+        <a href="#" onclick="add()" > Add Search Term </a>
+        <form action="/heatmap" method="post">
 
-    <div id="chart"></div>
+          <input type="text" name="words[]" /> <br/><br/>
+          <span class="add_search"></span> <br/>
+
+          Select Item List : 
+          <select name="item_list_name">
+            %for item in personal_item_list:
+             <option value="{{ item['name'] }}">  {{ item['name'] }} </option>
+            %end
+          </select>
+
+          <br/><br/>
+
+          <input type="submit" value="Submit" />
+        </form>
+
+      </div>
+
+      <div class="col-md-10">
+        <div id="chart"></div>
+      </div>
+    </div>
+    
+
+    
 
     <script type="text/javascript">
 

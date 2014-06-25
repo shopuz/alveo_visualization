@@ -1,9 +1,6 @@
 %include header
 <style>
 
-body {
-  font: 10px sans-serif;
-}
 
 .axis path,
 .axis line {
@@ -34,8 +31,8 @@ function add()
 </script>
 
 
-<body>
-  <br/><br/><br/><br/><br/><br/>
+
+  
   <h2>Word Frequency over Time</h2>
   
   <a href="#" onclick="add()" > Add Search Term </a>

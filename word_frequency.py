@@ -90,10 +90,21 @@ def compare_word_frequency_decade(client):
 		
 
 
-def get_collocation_frequency(client, item_list_name=''):
-	""" Get the collocation frequency of all the words in the item lists owned by the client """
+def get_collocation_frequency(client, item_list_name='', search_words=[]):
+	""" Get the collocation frequency of all the words in the item lists owned by the client 
+		If the item list and search words are specified, then only the collocation of those 
+		words are computed
+		For the sake of demo, this function only returns the unique words for rows and columns
+
+		TODO:
+		 return the collocation frequency : 
+		 (word1, word2): frequency
+	"""
+	#print search_words
+	#print item_list_name
 
 	primary_text = ''
+	
 	if not item_list_name:
 		lists = client.get_item_lists()
 
@@ -123,15 +134,28 @@ def get_collocation_frequency(client, item_list_name=''):
 	fdist = nltk.FreqDist(bgs)
 	file = open("./static/data.tsv", "w")
 	file.write("day\thour\tvalue\n")
-	for k,v in fdist.items()[1:50]:
-	    if k[0] not in row_unique:
-	    	row_unique.append(k[0])
-	    if k[1] not in col_unique:
-	    	col_unique.append(k[1])
+	# Calculates for only  50 items in the frequency distribution
+	if not search_words:
+		limit = 50
+	else:
+		limit = None
 
-	    
-	    file.write(str(row_unique.index(k[0]) + 1) + '\t' + str(col_unique.index(k[1]) + 1) + '\t'  + str(v) + '\n')
+	for k,v in fdist.items()[1:limit]:
+	    if ((not search_words) or (k[0] in search_words and k[1] in search_words)):
+		    if k[0] not in row_unique:
+		    	row_unique.append(k[0])
+		    if k[1] not in col_unique:
+		    	col_unique.append(k[1])
 
+		    
+		    file.write(str(row_unique.index(k[0]) + 1) + '\t' + str(col_unique.index(k[1]) + 1) + '\t'  + str(v) + '\n')
+
+	for search_word in search_words:
+		if ((search_word not in row_unique) and (search_word not in col_unique)):
+			row_unique.append(search_word)
+			
+		
+			file.write(str(row_unique.index(search_word)) + '\t' + str(row_unique.index(search_word)) + '\t0')
 
 	return [row_unique, col_unique]
 

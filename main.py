@@ -48,15 +48,29 @@ def index():
 
                     )
 
-@route("/heatmap")
+@route("/heatmap", method="GET")
+@route("/heatmap", method="POST")
 def index():
     client = hcsvlab.Client()
-    [row_words, col_words] = word_frequency.get_collocation_frequency(client)
+    
+    words = request.forms.getall("words[]")
+    item_list_name = request.forms.get("item_list_name")
+
+    if words and item_list_name:
+        [row_words, col_words] = word_frequency.get_collocation_frequency(client, item_list_name, words)
+    else:
+        [row_words, col_words] = word_frequency.get_collocation_frequency(client, item_list_name)
 
     row_words= json.dumps(row_words)
     col_words = json.dumps(col_words)
+    print row_words
+    
+    return template('heatmap', 
+                    row_words = row_words, 
+                    col_words = col_words, 
+                    personal_item_list = get_personal_item_lists(client)
 
-    return template('heatmap', row_words = row_words, col_words = col_words)
+                    )
 
 
 @route("/visualise", method='POST')
