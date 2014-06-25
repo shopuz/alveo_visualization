@@ -36,11 +36,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Alveo Visualization</a>
+          <a class="navbar-brand" href="/">Alveo Visualization</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="/">Home</a></li>
             <li><a href="/wordcloud">WordCloud</a></li>
             <li><a href="/heatmap">HeatMap</a></li>
             <li><a href="/timeline">Timeline</a></li>

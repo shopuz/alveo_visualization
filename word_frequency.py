@@ -54,7 +54,7 @@ def get_word_frequency_table(client, item_list_name=''):
 	words = word_tokenize(primary_text)
 
 	c = Counter(words)
-	# Get only 50 most frequent words for the demo to be fast
+	# Get only 100 most frequent words for the demo to be fast
 	word_frequency_table = list(c.iteritems())[:100]
 
 	return  word_frequency_table
