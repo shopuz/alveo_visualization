@@ -9,14 +9,14 @@ It uses Bottle, a python framework for the web server and Bootstrap for the fron
 
 ### Screenshots
 #### WordCloud
-![]("./static/images/wordcloud.png")
+![](/static/images/wordcloud.png)
 
 
 #### Heatmap
-![]("./static/images/heatmap.png")
+![](/static/images/heatmap.png)
 
 
 #### Frequency Timeline
-![]("./static/images/frequency_timeline.png")
+![](/static/images/frequency_timeline.png)
 
 The graph visualizations are based on D3.js [https://github.com/mbostock/d3/wiki/Gallery](https://github.com/mbostock/d3/wiki/Gallery)
