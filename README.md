@@ -5,7 +5,7 @@ It uses Bottle, a python framework for the web server and Bootstrap for the fron
 
 ### Requirements
 1. [pyhcsvlab library](https://github.com/Alveo/pyhcsvlab)
-2. [Alveo Account with API Key](hcsvlab.org.au)
+2. [Alveo Account with API Key](http://hcsvlab.org.au)
 
 ### Screenshots
 #### WordCloud
