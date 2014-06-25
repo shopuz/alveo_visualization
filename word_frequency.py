@@ -160,7 +160,7 @@ def get_collocation_frequency(client, item_list_name='', search_words=[]):
 	return [row_unique, col_unique]
 
 
-def get_word_frequency_per_year(client, search_term='', item_list_name=''):
+def get_word_frequency_per_year(client, search_term='', pos='', item_list_name=''):
 	""" Get the frequency of a given word per year inside the item list given by item_list_name """
 	
 	if not search_term:
@@ -188,9 +188,25 @@ def get_word_frequency_per_year(client, search_term='', item_list_name=''):
 		primary_text = item.get_primary_text()
 		year = item.item_metadata['alveo:metadata']['dc:created']
 		words = word_tokenize(primary_text)
+		
+		if pos:
+			tagged_words = nltk.pos_tag(words)
+			f = nltk.FreqDist(tagged_words)
 
-		word_freq = words.count(search_term)
+			word_pos = (search_term, pos)
+		
+		
+			if word_pos in f.keys():
+				
+				print word_pos
+
+				word_freq = f[word_pos]
+
+		else:
+			word_freq = words.count(search_term)
+	
 		temp_result.append((year, word_freq))
+
 
 	for i in temp_result:
 		if i[0] in result.keys():

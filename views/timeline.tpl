@@ -25,7 +25,7 @@
 
 function add()
 {
-  $('.add_search').append('<input type="text" name="words[]" /> <br/><br/>')
+  $('.add_search').append('<input type="text" name="words[]" /> <select name="pos[]"><option value=""> Dont Know </option><option value="CC"> CC  coordinating conjunction  </option>  <option value="CD"> CD  cardinal number </option>  <option value="DT"> DT  determiner  </option>  <option value="EX"> EX  existential there </option>  <option value="FW"> FW  foreign word  </option>  <option value="IN"> IN  preposition/subordinating conjunction </option>  <option value="JJ"> JJ  adjective </option>  <option value="JJR">  JJR adjective, comparative    </option>  <option value="JJS">  JJS adjective, superlative    </option>  <option value="LS"> LS  list marker </option>  <option value="MD"> MD  modal   </option>  <option value="NN"> NN  noun, singular or mass    </option>  <option value="NNS">  NNS noun plural </option>  <option value="NNP">  NNP proper noun, singular </option>   <option value="NNPS"> NNPS  proper noun, plural   </option>  <option value="PDT">  PDT predeterminer   </option>  <option value="POS">  POS possessive ending   </option>  <option value="PRP">  PRP personal pronoun    </option>  <option value="PRP$"> PRP$  possessive pronoun    </option>  <option value="RB"> RB  adverb  </option>  <option value="RBR">  RBR adverb, comparative   </option>  <option value="RBS">  RBS adverb, superlative   </option>  <option value="RP"> RP  particle  </option>  <option value="TO"> TO  to    </option>  <option value="UH"> UH  interjection    </option>  <option value="VB"> VB  verb, base form   </option>  <option value="VBD">  VBD verb, past tense    </option>  <option value="VBG">  VBG verb, gerund/present participle   </option>  <option value="VBN">  VBN verb, past participle </option>  <option value="VBP">  VBP verb, sing. present, non-3d   </option>  <option value="VBZ">  VBZ verb, 3rd person sing. present  </option>  <option value="WDT">  WDT wh-determiner </option>  <option value="WP"> WP  wh-pronoun    </option>  <option value="WP">  WP$ possessive wh-pronoun </option>  <option value="WRB">  WRB wh-abverb </option></select><br/><br/>');
 }
 
 </script>
@@ -38,7 +38,47 @@ function add()
   <a href="#" onclick="add()" > Add Search Term </a>
   <form action="/timeline" method="post">
 
-    <input type="text" name="words[]" /> <br/><br/>
+    <input type="text" name="words[]" />    
+    <select name="pos[]">
+      <option value=""> Dont Know </option>
+      <option value="CC"> CC  coordinating conjunction  </option>
+      <option value="CD"> CD  cardinal number </option>
+      <option value="DT"> DT  determiner  </option>
+      <option value="EX"> EX  existential there </option>
+      <option value="FW"> FW  foreign word  </option>
+      <option value="IN"> IN  preposition/subordinating conjunction </option>
+      <option value="JJ"> JJ  adjective </option>
+      <option value="JJR">  JJR adjective, comparative    </option>
+      <option value="JJS">  JJS adjective, superlative    </option>
+      <option value="LS"> LS  list marker </option>
+      <option value="MD"> MD  modal   </option>
+      <option value="NN"> NN  noun, singular or mass    </option>
+      <option value="NNS">  NNS noun plural </option>
+      <option value="NNP">  NNP proper noun, singular </option> 
+      <option value="NNPS"> NNPS  proper noun, plural   </option>
+      <option value="PDT">  PDT predeterminer   </option>
+      <option value="POS">  POS possessive ending   </option>
+      <option value="PRP">  PRP personal pronoun    </option>
+      <option value="PRP$"> PRP$  possessive pronoun    </option>
+      <option value="RB"> RB  adverb  </option>
+      <option value="RBR">  RBR adverb, comparative   </option>
+      <option value="RBS">  RBS adverb, superlative   </option>
+      <option value="RP"> RP  particle  </option>
+      <option value="TO"> TO  to    </option>
+      <option value="UH"> UH  interjection    </option>
+      <option value="VB"> VB  verb, base form   </option>
+      <option value="VBD">  VBD verb, past tense    </option>
+      <option value="VBG">  VBG verb, gerund/present participle   </option>
+      <option value="VBN">  VBN verb, past participle </option>
+      <option value="VBP">  VBP verb, sing. present, non-3d   </option>
+      <option value="VBZ">  VBZ verb, 3rd person sing. present  </option>
+      <option value="WDT">  WDT wh-determiner </option>
+      <option value="WP"> WP  wh-pronoun    </option>
+      <option value="WP$">  WP$ possessive wh-pronoun </option>
+      <option value="WRB">  WRB wh-abverb </option>
+    </select>
+
+    <br/><br/>
     <span class="add_search"></span> <br/>
 
     Select Item List : 

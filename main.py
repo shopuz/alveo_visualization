@@ -64,7 +64,7 @@ def index():
     row_words= json.dumps(row_words)
     col_words = json.dumps(col_words)
     print row_words
-    
+
     return template('heatmap', 
                     row_words = row_words, 
                     col_words = col_words, 
@@ -95,14 +95,23 @@ def index():
     client = hcsvlab.Client()
 
     words = request.forms.getall("words[]")
+    pos = request.forms.getall("pos[]")
+    
+    print words
+    print pos
+
     item_list_name = request.forms.get("item_list_name")
 
     word_list = []
     file = open("./static/timeline.tsv", "w")
     file.write("date")
+    i=0
     for word in words:
-        file.write("\t" + word)    
-        word_list.append(word_frequency.get_word_frequency_per_year(client, word, item_list_name))
+        file.write("\t" + word + '_' + pos[i])    
+        result = word_frequency.get_word_frequency_per_year(client, word, pos[i], item_list_name)
+        if result:
+            word_list.append(result)
+        i = i + 1
     
     #an_list = word_frequency.get_word_frequency_per_year(client,'an', 'cooee list')
     #a_list = word_frequency.get_word_frequency_per_year(client,'a', 'cooee list')
@@ -111,6 +120,9 @@ def index():
     if not word_list:
         return template('timeline', rows=[], personal_item_list = get_personal_item_lists(client))
 
+
+    print word_list
+   
     for key in sorted(word_list[0]):
         file.write(key);
         for i in range(len(word_list)):
