@@ -23,7 +23,7 @@ def get_personal_item_lists(client):
 # Procedure to handle the home page /
 @route("/")
 def index():
-    return template("test")
+    return template("index")
 
 @route("/wordcloud")
 def index():
@@ -119,5 +119,5 @@ def index():
 if __name__ == "__main__":
     # start a server but have it reload any files that
     # are changed
-    run(host="localhost", port=8040, reloader=True)
+    run(host="localhost", port=8020, reloader=True)
 

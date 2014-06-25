@@ -77,32 +77,31 @@
 
     </script>
 
-    <br/><br/>
+    
   <h3> Alveo WordCloud </h3>
-  <div class="item_ist">
-    <div class="personal_list">
-      <h4> My Item List </h4>
-      <ul>
-      %for item in personal_item_list:
-       <li> <a href="#" onclick="visualise('{{ item['name'] }}')">  {{ item['name'] }} </a> </li>
-      %end
-      </ul>
-    </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-primary item_ist">
+          <div class="panel-heading"> My Item List </div>
+          <ul class="list-group">
+          %for item in personal_item_list:
+           <li class="list-group-item"> <a href="#" onclick="visualise('{{ item['name'] }}')">  {{ item['name'] }} </a> </li>
+          %end
+          </ul>
+          <div class="panel-heading"> Shared List</div>
+          <ul class="list-group">
+          %for item in shared_item_list:
+           <li class="list-group-item"> <a href="#" onclick="visualise('{{ item['name'] }}')">  {{ item['name'] }} </a> </li>
+          %end
+          </ul>
+        </div>
+      </div>
 
-    <div class="shared_list">
-      <h4> Shared List </h4>
-      <ul>
-      %for item in shared_item_list:
-       <li> <a href="#" onclick="visualise('{{ item['name'] }}')">  {{ item['name'] }} </a> </li>
-      %end
-      </ul>
+    <div class="col-md-9">
+      <div id="drawing">
+      </div>
     </div>
   </div>
-
-
-  <div id="drawing">
-  </div>
-
     
 
 

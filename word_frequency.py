@@ -26,7 +26,7 @@ def get_word_frequency(client, search_term=''):
 	words = word_tokenize(primary_text)
 
 	word_frequency = words.count(search_term)
-			
+	print word_frequency
 	return word_frequency
 
 
@@ -54,7 +54,8 @@ def get_word_frequency_table(client, item_list_name=''):
 	words = word_tokenize(primary_text)
 
 	c = Counter(words)
-	word_frequency_table = sorted(c.iteritems())
+	# Get only 50 most frequent words for the demo to be fast
+	word_frequency_table = list(c.iteritems())[:100]
 
 	return  word_frequency_table
 
@@ -148,7 +149,7 @@ def get_word_frequency_per_year(client, search_term='', item_list_name=''):
 	temp_result = []
 	result = {}
 	items = []
-	
+
 	if item_list_name:
 		item_list = client.get_item_list_by_name(item_list_name)
 		items = item_list.get_all()
@@ -163,6 +164,7 @@ def get_word_frequency_per_year(client, search_term='', item_list_name=''):
 		primary_text = item.get_primary_text()
 		year = item.item_metadata['alveo:metadata']['dc:created']
 		words = word_tokenize(primary_text)
+
 		word_freq = words.count(search_term)
 		temp_result.append((year, word_freq))
 
