@@ -10,7 +10,7 @@ It uses ``Bottle``, a python framework for the web server and Bootstrap for the 
 ### Usage
 
 1. Download the ``configuration file`` from [Alveo Account](http://hcsvlab.org.au) and put it under home directory (~)
-2. If you have not installed [hcsvlab library ](https://github.com/Alveo/pyhcsvlab), download the library and provide the ``path to that library in **main.py** file``
+2. If you have not installed [hcsvlab library ](https://github.com/Alveo/pyhcsvlab), download the library and provide the ``path to that library in main.py file``
 3. In the terminal at this directory, run the command ``python main.py``
 4. Open your browser and navigate to ``localhost`` with the port specified in the terminal screen
 
