@@ -33,12 +33,15 @@
 
     
     <h3 class="center"> Collocation Heatmap </h3>
+    Currently  it just considers a bigram collocation (collocation of two words) 
+    <br/>
+
     <a href="/heatmap">Reload Default Heatmap</a>
     <br/>
     <div class="row">
       <div class="col-md-2">
         <h4> Custom Heatmap </h4>
-        <a href="#" onclick="add()" > Add Search Term </a>
+        <a href="#" onclick="add()" > Add Term for Collocation Search </a>
         <form action="/heatmap" method="post">
 
           <input type="text" name="words[]" /> <br/><br/>
