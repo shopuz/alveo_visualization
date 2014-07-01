@@ -13,4 +13,4 @@ RUN python setup.py install
 
 WORKDIR /alveo_visualization
 EXPOSE 8080
-CMD ["python", "main.py"]
+CMD ["python", "temp.py"]
