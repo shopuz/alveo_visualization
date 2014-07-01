@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 RUN sudo apt-get install -y python
 RUN sudo apt-get update
 RUN sudo apt-get install -y git
+sudo apt-get install -y python-setuptools
 
 RUN git clone https://github.com/shopuz/alveo_visualization.git
 
