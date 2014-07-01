@@ -12,5 +12,5 @@ WORKDIR /pyhcsvlab
 RUN python setup.py install
 
 WORKDIR /alveo_visualization
-EXPOSE :80
+EXPOSE 8080
 CMD ["python", "temp.py"]
