@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from bottle import template, request, redirect, route, post, run, static_file
-import sys
-sys.path.append('/Users/surendrashrestha/Projects/pyhcsvlab')
-import hcsvlab
+#import sys
+#sys.path.append('/Users/surendrashrestha/Projects/pypyalveo')
+import pyalveo
 import word_frequency
 import json
 
@@ -28,7 +28,7 @@ def index():
 @route("/wordcloud")
 def index():
     
-    client = hcsvlab.Client()
+    client = pyalveo.Client()
     
     wordfrequency = word_frequency.get_word_frequency_table(client)
     
@@ -51,7 +51,7 @@ def index():
 @route("/heatmap", method="GET")
 @route("/heatmap", method="POST")
 def index():
-    client = hcsvlab.Client()
+    client = pyalveo.Client()
     
     words = request.forms.getall("words[]")
     item_list_name = request.forms.get("item_list_name")
@@ -75,7 +75,7 @@ def index():
 
 @route("/visualise", method='POST')
 def index():
-    client = hcsvlab.Client()
+    client = pyalveo.Client()
     item_list_name = str(request.json['item_list_name'])
     
     wordfrequency = word_frequency.get_word_frequency_table(client, item_list_name)
@@ -92,7 +92,7 @@ def index():
 @route("/timeline", method="POST")
 @route("/timeline", method="GET")
 def index():
-    client = hcsvlab.Client()
+    client = pyalveo.Client()
 
     words = request.forms.getall("words[]")
     pos = request.forms.getall("pos[]")
@@ -147,5 +147,5 @@ def index():
 if __name__ == "__main__":
     # start a server but have it reload any files that
     # are changed
-    run(host="localhost", port=8020, reloader=True)
+    run(host="localhost", port=8080, reloader=True)
 

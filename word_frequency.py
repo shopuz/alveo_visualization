@@ -1,6 +1,6 @@
-import sys
-sys.path.append('/Users/surendrashrestha/Projects/pyhcsvlab')
-import hcsvlab
+#import sys
+#sys.path.append('/Users/surendrashrestha/Projects/pyhcsvlab')
+import pyalveo
 from collections import Counter
 from nltk.tokenize import word_tokenize
 import nltk
@@ -173,6 +173,7 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 	temp_result = []
 	result = {}
 	items = []
+	total_sum = 0
 
 	if item_list_name:
 		item_list = client.get_item_list_by_name(item_list_name)
@@ -187,7 +188,7 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 	for item in items:
 		primary_text = item.get_primary_text()
 		year = item.item_metadata['alveo:metadata']['dc:created']
-		words = word_tokenize(primary_text)
+		words = word_tokenize(primary_text.lower())
 		filtered_words = []
 		
 		if pos:
@@ -212,8 +213,13 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 				word_freq = words.count(search_term)
 		else:
 			word_freq = words.count(search_term)
+			print word_freq, search_term
+			total_sum = total_sum + word_freq
 	
 		temp_result.append((year, word_freq))
+
+
+	print "total sum: " + str(total_sum)
 
 
 	for i in temp_result:
@@ -225,11 +231,28 @@ def get_word_frequency_per_year(client, search_term='', pos='', item_list_name='
 
 	return result
 
+def build_item_list(client, word=''):
+	""" Build item list with items containing a particular word """
+	item_group = client.search_metadata('collection_name:cooee')
+	items = item_group.get_all()
+	item_list_name  = word + '_list'
+	item_urls = []
+	for item in items:
+		primary_text = item.get_primary_text()
+		if word in primary_text:
+			print item.url()
+			item_urls.append(item.url())
+			#client.add_to_item_list_by_name([item.url()], item_list_name)
+
+	for url in item_urls:
+		client.add_to_item_list_by_name(item_urls, item_list_name)
+
 
 
 
 if __name__ == '__main__':
-	client  = hcsvlab.Client()
+	client  = pyalveo.Client()
 	#print get_collocation_frequency(client, 'ace list')
+	build_item_list(client, 'orphan')
 
 
